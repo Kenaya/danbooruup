@@ -6,12 +6,15 @@ var StrBundleSvc	= Components.classes['@mozilla.org/intl/stringbundle;1'].getSer
 var danbooruUpMsg	= StrBundleSvc.createBundle('chrome://danbooruup/locale/danbooruUp.properties');
 var commondlgMsg	= StrBundleSvc.createBundle('chrome://mozapps/locale/extensions/update.properties');
 
-var cacheService	= Components.classes["@mozilla.org/network/cache-service;1"]
-						.getService(Components.interfaces.nsICacheService);
-var httpCacheSession = cacheService.createSession("HTTP", 0, true);
-httpCacheSession.doomEntriesIfExpired = false;
-var ftpCacheSession = cacheService.createSession("FTP", 0, true);
-ftpCacheSession.doomEntriesIfExpired = false;
+let {LoadContextInfo} = Components.utils.import(
+  "resource://gre/modules/LoadContextInfo.jsm", {}
+);
+var cacheService	= Components.classes["@mozilla.org/netwerk/cache-storage-service;1"]
+						.getService(Components.interfaces.nsICacheStorageService);
+var httpCacheSession = cacheService.diskCacheStorage(LoadContextInfo.default, true);
+//httpCacheSession.doomEntriesIfExpired = false;
+//var ftpCacheSession = cacheService.createSession("FTP", 0, true);
+//ftpCacheSession.doomEntriesIfExpired = false;
 var encoder			= Components.classes['@mozilla.org/intl/saveascharset;1'].createInstance(Components.interfaces.nsISaveAsCharset);
 
 encoder.Init('UTF-8',
@@ -24,18 +27,18 @@ const XPathResult = Components.interfaces.nsIDOMXPathResult;
 function getSize(url) {
 	try
 	{
-		var cacheEntryDescriptor = httpCacheSession.openCacheEntry(url, Components.interfaces.nsICache.ACCESS_READ, false);
+		var cacheEntryDescriptor = storage.asyncOpenURI(url, Components.interfaces.nsICacheStorage.ACCESS_READ, false);
 		if(cacheEntryDescriptor)
 			return cacheEntryDescriptor.dataSize;
 	}
 	catch(ex) {}
-	try
-	{
-		cacheEntryDescriptor = ftpCacheSession.openCacheEntry(url, Components.interfaces.nsICache.ACCESS_READ, false);
-		if (cacheEntryDescriptor)
-			return cacheEntryDescriptor.dataSize;
-	}
-	catch(ex) {}
+//	try
+//	{
+//		cacheEntryDescriptor = ftpCacheSession.openCacheEntry(url, Components.interfaces.nsICache.ACCESS_READ, //false);
+//		if (cacheEntryDescriptor)
+//			return cacheEntryDescriptor.dataSize;
+//	}
+//	catch(ex) {}
 	return -1;
 }
 
