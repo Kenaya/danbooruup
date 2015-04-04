@@ -1,0 +1,21 @@
+#include "nsISupports.idl"
+#include "danbooruITagHistoryService.idl"
+#include "danbooruICanceller.idl"
+#include "danbooruIProgressCallback.idl"
+
+interface nsIURI;
+interface nsIInterfaceRequestor;
+
+[scriptable, uuid(af37695d-9d42-4795-88df-d2208816f201)]
+interface danbooruIHelperService : nsISupports
+{
+	readonly attribute danbooruITagHistoryService tagService;
+
+	void contentLoaded(in nsISupports win);
+
+	danbooruICanceller update(in boolean interactive, in danbooruIProgressCallback progress);
+
+	void startUpload(in nsIURI aRealSource, in wstring aSource, in wstring aTags, in wstring aRating, in wstring aDest,
+			in nsIURI aLocation, in nsISupports aWind, in boolean aUpdate);
+};
+

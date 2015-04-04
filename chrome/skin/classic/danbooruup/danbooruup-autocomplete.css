@@ -1,0 +1,29 @@
+/* styles for XUL autocomplete parts */
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace html url("http://www.w3.org/1999/xhtml");
+
+/* bindings are mostly to separate danbooru CSS classes from the mozilla ones */
+textbox[type="danbooruac"] {
+	padding: 3px 4px 2px 2px;
+}
+
+panel[type="danbooru-autocomplete"] {
+  -moz-appearance: none;
+  border-width: 1px;
+  -moz-border-top-colors: ThreeDDarkShadow;
+  -moz-border-right-colors: ThreeDDarkShadow;
+  -moz-border-bottom-colors: ThreeDDarkShadow;
+  -moz-border-left-colors: ThreeDDarkShadow;
+  padding: 0;
+  background-color: -moz-Field !important;
+}
+
+.danbooru-autocomplete {
+	width: 40em;
+}
+
+.danbooru-autocomplete richlistbox {
+	max-height: 20em;
+	min-height: 1em;
+}
+

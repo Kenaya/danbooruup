@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE overlay [
+<!ENTITY % danbooruUpOptionsDTD SYSTEM "chrome://danbooruup/locale/danbooruUpOptions.dtd">
+%danbooruUpOptionsDTD;
+]>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<prefpane id="danbooruUpStylePane" label="&danbooruUpOptions.styleTab.label;" onpaneload="setTimeout(function() initStylePane(), 0)">
+	<preferences>
+		<preference id="pref.extensions.danbooruUp.tagtype.0"
+			    name="extensions.danbooruUp.tagtype.0"		type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.1"
+			    name="extensions.danbooruUp.tagtype.1"		type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.2"
+			    name="extensions.danbooruUp.tagtype.2"		type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.3"
+			    name="extensions.danbooruUp.tagtype.3"		type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.4"
+			    name="extensions.danbooruUp.tagtype.4"		type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.5"
+			    name="extensions.danbooruUp.tagtype.5"		type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.6"
+			    name="extensions.danbooruUp.tagtype.6"		type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.7"
+			    name="extensions.danbooruUp.tagtype.7"		type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.0.selected"
+			    name="extensions.danbooruUp.tagtype.0.selected"	type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.1.selected"
+			    name="extensions.danbooruUp.tagtype.1.selected"	type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.2.selected"
+			    name="extensions.danbooruUp.tagtype.2.selected"	type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.3.selected"
+			    name="extensions.danbooruUp.tagtype.3.selected"	type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.4.selected"
+			    name="extensions.danbooruUp.tagtype.4.selected"	type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.5.selected"
+			    name="extensions.danbooruUp.tagtype.5.selected"	type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.6.selected"
+			    name="extensions.danbooruUp.tagtype.6.selected"	type="string" />
+		<preference id="pref.extensions.danbooruUp.tagtype.7.selected"
+			    name="extensions.danbooruUp.tagtype.7.selected"	type="string" />
+	</preferences>
+	<stringbundle id="bundleDanbooruOptions" src="chrome://danbooruup/locale/danbooruUp.properties"/>
+	<script type="application/x-javascript"><![CDATA[
+		var tagStyles = {};
+		tagStyles[''] = true;
+		tagStyles['.selected'] = true;
+		function initStylePane()
+		{
+			document.getElementById('styleList').selectedIndex = 0;
+			onStyleSelect();
+			applyStyle();
+		}
+
+		function getStylePrefElement(style)
+		{
+			return document.getElementById('pref.extensions.danbooruUp.tagtype.' + style);
+		}
+
+		function getCurrentStylePref(qualifier)
+		{
+			var style = document.getElementById('styleList').selectedItem.value
+			return getStylePrefElement(style + qualifier);
+		}
+
+		function onStyleChange(qualifier, value)
+		{
+			getCurrentStylePref(qualifier).value = value;
+		}
+
+		function onStyleSelect()
+		{
+			document.getElementById('currentStyle').value = document.getElementById('styleList').selectedItem.searchLabel;
+			for (var st in tagStyles)
+				document.getElementById('styleBox' + st).value = getCurrentStylePref(st).value;
+		}
+
+	    	function getStyle(style)
+		{
+			var e = document.getElementById('pref.extensions.danbooruUp.tagtype.' + style);
+			if (e) {
+				return e.value;
+			}
+			return null;
+		}
+
+		function applyStyle()
+		{
+			danbooruAddTagTypeStyleSheet(getStyle);
+		}
+
+		function revertStyle()
+		{
+			for (var st in tagStyles) {
+				let pref = getCurrentStylePref(st);
+				if (pref.hasUserValue)
+					pref.reset();
+			}
+			onStyleSelect();
+		}
+	]]>
+	</script>
+		<hbox>
+			<vbox id="tagTreeBox" flex="1">
+				<richlistbox id="styleList" class="danbooru-autocomplete" onselect="onStyleSelect();" flex="1">
+					<richlistitem value="0" searchlabel="&danbooruUpOptions.tagtype.0;" class="danbooru-tagtype-0">
+						<description>&danbooruUpOptions.tagtype.0;</description>
+					</richlistitem>
+					<richlistitem value="2" searchlabel="&danbooruUpOptions.tagtype.2;" class="danbooru-tagtype-0 danbooru-tagtype-2">
+						<description>&danbooruUpOptions.tagtype.2;</description>
+					</richlistitem>
+					<richlistitem value="1" searchlabel="&danbooruUpOptions.tagtype.1;" class="danbooru-tagtype-0 danbooru-tagtype-1">
+						<description>&danbooruUpOptions.tagtype.1;</description>
+					</richlistitem>
+					<richlistitem value="3" searchlabel="&danbooruUpOptions.tagtype.3;" class="danbooru-tagtype-0 danbooru-tagtype-3">
+						<description>&danbooruUpOptions.tagtype.3;</description>
+					</richlistitem>
+					<richlistitem value="4" searchlabel="&danbooruUpOptions.tagtype.4;" class="danbooru-tagtype-0 danbooru-tagtype-4">
+						<description>&danbooruUpOptions.tagtype.4;</description>
+					</richlistitem>
+					<richlistitem value="5" searchlabel="&danbooruUpOptions.tagtype.5;" class="danbooru-tagtype-0 danbooru-tagtype-5">
+						<description>&danbooruUpOptions.tagtype.5;</description>
+					</richlistitem>
+					<richlistitem value="6" searchlabel="&danbooruUpOptions.tagtype.6;" class="danbooru-tagtype-0 danbooru-tagtype-6">
+						<description>&danbooruUpOptions.tagtype.6;</description>
+					</richlistitem>
+					<richlistitem value="7" searchlabel="&danbooruUpOptions.tagtype.7;" class="danbooru-tagtype-0 danbooru-tagtype-7">
+						<description>&danbooruUpOptions.tagtype.7;</description>
+					</richlistitem>
+				</richlistbox>
+			</vbox>
+			<vbox flex="3">
+				<vbox align="start" id="dSTBox" flex="1">
+				<description id="danbooruStyleText">&danbooruUpOptions.style.description;</description>
+				</vbox>
+				<label id="currentStyle" />
+				<label control="styleBox" value="&danbooruUpOptions.tagtype.default;" />
+				<textbox id="styleBox" flex="1" multiline="true" oninput="onStyleChange('', this.value);"/>
+				<label control="styleBox.selected" value="&danbooruUpOptions.tagtype.selected;" />
+				<textbox id="styleBox.selected" flex="1" multiline="true" oninput="onStyleChange('.selected', this.value);"/>
+			</vbox>
+		</hbox>
+				<hbox class="actionButtons" pack="end">
+					<button id="btnRevertStyle" label="&danbooruUpOptions.revert.label;"
+						oncommand="revertStyle();" tooltip="&danbooruUpOptions.revert.tooltip;"/>
+					<button id="btnApplyStyle" label="&danbooruUpOptions.applyStyle.label;"
+						accesskey="&danbooruUpOptions.applyStyle.accesskey;"
+						oncommand="applyStyle();"/>
+				</hbox>
+		<spacer flex="1"/>
+	</prefpane>
+</overlay>
