@@ -36,16 +36,16 @@ function init()
 			document.getElementById('rewrite_notification').hidden = false;
 		}
 
-		window.locations = [window.arguments[0].imageLocation.spec];
+		window.locations = [window.arguments[0].imageURI.spec];
 
 		if(!window.arguments[0].imageLocation.equals(window.arguments[0].imageURI))
-			window.locations.push(window.arguments[0].imageURI.spec);
+			window.locations.push(window.arguments[0].imageLocation.spec);
 
 		if(window.arguments[0].referrer)
 			window.locations.unshift(window.arguments[0].referrer);
 
 		if (prefService.getBoolPref("extensions.danbooruUp.fileurlsource") || !(window.arguments[0].imageURI.scheme == 'file') )
-			source = window.arguments[0].imageURI.spec;
+			source = window.arguments[0].imageLocation.spec;
 	} else {
 		window.locations = [];
 	}
