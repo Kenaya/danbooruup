@@ -352,7 +352,7 @@ var danbooruUpHelperObject = {
 		sandbox.unsafeWindow = unsafeContentWin;
 		sandbox.window = safeWin;
 		sandbox.document = sandbox.window.document;
-		sandbox.__proto__ = safeWin;
+		sandbox.prototype = safeWin;
 		sandbox.GM_log = danbooruUpHitch(this, "log");
 
 		var acPrefs = {completeWithTab: this._branch.getBoolPref('autocomplete.completewithtab'),
