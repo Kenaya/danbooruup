@@ -51,6 +51,7 @@ function init()
 	}
 
 	document.getElementById('source').value = source;
+	document.getElementById('tags').value = window.opener.document.getElementById('post_old_tag_string').value;
 	doSwitchSource(0);
 
 	document.getElementById('noForward').checked = prefService.getBoolPref('extensions.danbooruUp.noforward');
